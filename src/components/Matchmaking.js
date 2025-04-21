@@ -1,10 +1,8 @@
-// Matchmaking.js
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, push, onValue, remove, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebaseConfig"; // Firebase ayar dosyan
+import { firebaseConfig } from "../../firebaseConfig";
 
-// Firebase'i initialize et (sadece bir kez)
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -27,17 +25,14 @@ function Matchmaking({ onMatchFound }) {
           const entries = Object.entries(players);
           for (let [id, player] of entries) {
             if (player.username !== username) {
-              // Eşleştirilecek biri bulundu
               const gameId = Date.now().toString();
 
-              // Oyun oluştur
               await set(ref(db, `games/${gameId}`), {
                 player1: { id, username: player.username },
                 player2: { id: "local", username },
                 createdAt: Date.now(),
               });
 
-              // Bekleyen oyuncuyu temizle
               await remove(ref(db, `waitingPlayers/${id}`));
 
               setStatus(`Rakip bulundu: ${player.username}`);
@@ -47,7 +42,6 @@ function Matchmaking({ onMatchFound }) {
           }
         }
 
-        // Eğer kimse yoksa kendini kuyruğa ekle
         const newRef = push(waitingRef);
         await set(newRef, {
           username,
@@ -59,7 +53,6 @@ function Matchmaking({ onMatchFound }) {
     );
   };
 
-  // Sayfa kapanırsa kendini kuyruktan sil
   useEffect(() => {
     const cleanup = () => {
       if (playerId) {

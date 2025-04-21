@@ -1,12 +1,15 @@
 import React from "react";
+import Matchmaking from "./components/Matchmaking";
 
 function App() {
-  return (
-    <div>
-      <h1>Sprinkles'in Kart Düellosuna Hoş Geldiniz!</h1>
-      <p>Oyuna başlamak için beklemede kalın...</p>
-    </div>
-  );
+  const handleMatchFound = (gameId, you, opponent) => {
+    console.log("Eşleşme tamam 🎉");
+    console.log("Oyun ID:", gameId);
+    console.log("Sen:", you, "| Rakip:", opponent);
+    // Buradan sonra oyun ekranına geçiş yapabilirsin
+  };
+
+  return <Matchmaking onMatchFound={handleMatchFound} />;
 }
 
 export default App;

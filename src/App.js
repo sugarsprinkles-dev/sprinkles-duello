@@ -12,4 +12,4 @@ function App() {
   return <Matchmaking onMatchFound={handleMatchFound} />;
 }
 
-export default App;
+export default App;  

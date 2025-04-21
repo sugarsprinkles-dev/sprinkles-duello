@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, push, onValue, remove, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../firebaseConfig";
+import { firebaseConfig } from "../firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
